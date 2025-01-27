@@ -1,7 +1,9 @@
 package com.kmp.book.presentation.main
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -9,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kmp.book.presentation.main.component.BookListArea
 import com.kmp.book.presentation.main.component.InputQueryField
 import com.kmp.book.presentation.main.viewmodel.MainScreenViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -46,12 +49,18 @@ private fun MainScreen(
         ) {
             InputQueryField(
                 inputText = state.inputQuery,
-                onValueChange = { inputText ->
-                    onAction(MainAction.OnQueryChange(query = inputText))
-                },
-                onSearch = {
-                    onAction(MainAction.OnSearchBookList)
-                }
+                onValueChange = { inputText -> onAction(MainAction.OnQueryChange(query = inputText)) },
+                onSearch = { onAction(MainAction.OnSearchBookList) },
+                onClick = { onAction(MainAction.OnSearchBookList) }
+            )
+
+            Spacer(
+                modifier = Modifier
+                    .height(40.dp)
+            )
+
+            BookListArea(
+                book = state.bookList
             )
         }
     }
