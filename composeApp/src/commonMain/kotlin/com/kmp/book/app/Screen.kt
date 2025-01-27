@@ -6,5 +6,12 @@ sealed interface Screen {
     @Serializable
     data object Main: Screen
     @Serializable
-    data object Detail: Screen
+    data class Detail(
+        val thumbnail: String,
+        val title: String,
+        val contents: String,
+        val publisher: String,
+        val salePrice: Int,
+        val status: String,
+    ): Screen
 }

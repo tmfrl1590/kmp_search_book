@@ -1,5 +1,6 @@
 package com.kmp.book.presentation.main.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +30,7 @@ import com.skydoves.landscapist.coil3.CoilImage
 @Composable
 fun BookListArea(
     book: Book,
+    onClick: (Documents) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -42,7 +44,10 @@ fun BookListArea(
             }
         ){ _,  item ->
             SearchedBookItem(
-                documents = item
+                documents = item,
+                onClick = {
+                    onClick(item)
+                }
             )
         }
     }
@@ -50,12 +55,16 @@ fun BookListArea(
 
 @Composable
 private fun SearchedBookItem(
-    documents: Documents
+    documents: Documents,
+    onClick: () -> Unit,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp),
+            .height(80.dp)
+            .clickable {
+                onClick()
+            },
         verticalAlignment = Alignment.CenterVertically
     ) {
         BookImage(

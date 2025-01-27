@@ -13,6 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
+import com.kmp.book.app.Screen
+import com.kmp.book.domain.model.Documents
 import com.kmp.book.presentation.main.component.BookListArea
 import com.kmp.book.presentation.main.component.InputQueryField
 import com.kmp.book.presentation.main.viewmodel.MainScreenViewModel
@@ -20,6 +23,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MainScreenRoute(
+    navController: NavHostController,
     viewModel: MainScreenViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -31,6 +35,18 @@ fun MainScreenRoute(
                 is MainAction.OnQueryChange -> viewModel.onAction(action)
                 is MainAction.OnSearchBookList -> viewModel.onAction(action)
             }
+        },
+        onClick = { document ->
+            navController.navigate(
+                Screen.Detail(
+                    thumbnail = document.thumbnail,
+                    title = document.title,
+                    contents = document.contents,
+                    publisher = document.publisher,
+                    salePrice = document.salePrice,
+                    status = document.status,
+                )
+            )
         }
     )
 }
@@ -39,6 +55,7 @@ fun MainScreenRoute(
 private fun MainScreen(
     state: MainScreenState,
     onAction: (MainAction) -> Unit,
+    onClick: (Documents) -> Unit,
 ) {
     Scaffold(
 
@@ -63,7 +80,8 @@ private fun MainScreen(
             )
 
             BookListArea(
-                book = state.bookList
+                book = state.bookList,
+                onClick = onClick
             )
         }
     }
