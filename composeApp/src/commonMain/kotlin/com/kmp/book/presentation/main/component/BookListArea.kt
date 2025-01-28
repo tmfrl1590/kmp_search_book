@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kmp.book.domain.model.Book
 import com.kmp.book.domain.model.Documents
+import com.kmp.book.util.convertToAuthor
 import com.kmp.book.util.formatPrice
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
@@ -121,6 +122,3 @@ private fun BookInfo(
     }
 }
 
-fun convertToAuthor(authors: List<String>): String{
-    return authors.joinToString(separator = ", ")
-}

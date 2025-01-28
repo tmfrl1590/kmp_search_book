@@ -32,6 +32,8 @@ fun AppNavHost() {
                 val publisher = backStackEntry.toRoute<Screen.Detail>().publisher
                 val salePrice = backStackEntry.toRoute<Screen.Detail>().salePrice
                 val status = backStackEntry.toRoute<Screen.Detail>().status
+                val authors = backStackEntry.toRoute<Screen.Detail>().authors
+                val datetime = backStackEntry.toRoute<Screen.Detail>().datetime
                 DetailScreenRoute(
                     navController = navController,
                     thumbnail = thumbnail,
@@ -40,6 +42,8 @@ fun AppNavHost() {
                     publisher = publisher,
                     salePrice = salePrice,
                     status = status,
+                    authors = authors,
+                    datetime = datetime,
                 )
             }
         }

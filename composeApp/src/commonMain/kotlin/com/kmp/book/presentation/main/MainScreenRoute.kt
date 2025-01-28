@@ -19,6 +19,7 @@ import com.kmp.book.domain.model.Documents
 import com.kmp.book.presentation.main.component.BookListArea
 import com.kmp.book.presentation.main.component.InputQueryField
 import com.kmp.book.presentation.main.viewmodel.MainScreenViewModel
+import com.kmp.book.util.convertToAuthor
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -45,6 +46,8 @@ fun MainScreenRoute(
                     publisher = document.publisher,
                     salePrice = document.salePrice,
                     status = document.status,
+                    authors = convertToAuthor(document.authors),
+                    datetime = document.datetime
                 )
             )
         }

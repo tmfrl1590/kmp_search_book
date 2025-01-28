@@ -13,5 +13,7 @@ sealed interface Screen {
         val publisher: String,
         val salePrice: Int,
         val status: String,
+        val authors: String,
+        val datetime: String,
     ): Screen
 }

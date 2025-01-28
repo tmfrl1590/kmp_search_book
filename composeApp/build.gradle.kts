@@ -76,6 +76,9 @@ kotlin {
 
             // navigation
             implementation(libs.jetbrains.compose.navigation)
+
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+
         }
 
         iosMain.dependencies {

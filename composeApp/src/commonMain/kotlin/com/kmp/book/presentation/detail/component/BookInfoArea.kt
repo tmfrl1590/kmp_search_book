@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kmp.book.util.formatIsoDate
 import com.kmp.book.util.formatPrice
 
 @Composable
@@ -21,6 +22,8 @@ fun BookInfoArea(
     publisher: String,
     salePrice: Int,
     status: String,
+    authors: String,
+    datetime: String,
 ) {
     Column(
         modifier = Modifier
@@ -43,16 +46,28 @@ fun BookInfoArea(
         Spacer(modifier = Modifier.height(20.dp))
 
         BookInfoAreaItem(
-            title = "출판사",
-            value = publisher
+            title = "저자",
+            value = authors
         )
+
         BookInfoAreaItem(
             title = "판매가격",
             value = "${formatPrice(salePrice)}원",
         )
+
         BookInfoAreaItem(
             title = "상태",
             value = status
+        )
+
+        BookInfoAreaItem(
+            title = "출판일",
+            value = formatIsoDate(datetime)
+        )
+
+        BookInfoAreaItem(
+            title = "출판사",
+            value = publisher
         )
     }
 }

@@ -6,14 +6,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.kmp.book.presentation.detail.component.BookImageArea
 import com.kmp.book.presentation.detail.component.BookInfoArea
@@ -28,6 +27,8 @@ fun DetailScreenRoute(
     publisher: String,
     salePrice: Int,
     status: String,
+    authors: String,
+    datetime: String,
 ) {
     DetailScreen(
         thumbnail = thumbnail,
@@ -36,6 +37,8 @@ fun DetailScreenRoute(
         publisher = publisher,
         salePrice = salePrice,
         status = status,
+        authors = authors,
+        datetime = datetime,
         onNavigationClick = { navController.popBackStack() }
     )
 }
@@ -48,8 +51,11 @@ private fun DetailScreen(
     publisher: String,
     salePrice: Int,
     status: String,
+    authors: String,
+    datetime: String,
     onNavigationClick: () -> Unit,
 ) {
+    val scrollState = rememberScrollState()
     Scaffold(
         topBar = {
             DetailTopBar(
@@ -63,6 +69,7 @@ private fun DetailScreen(
                 .fillMaxSize()
                 .background(Color.White)
                 .padding(it)
+                .verticalScroll(scrollState)
         ) {
             BookImageArea(
                 imageUrl = thumbnail,
@@ -75,6 +82,8 @@ private fun DetailScreen(
                 publisher = publisher,
                 salePrice = salePrice,
                 status = status,
+                authors = authors,
+                datetime = datetime,
             )
         }
     }
