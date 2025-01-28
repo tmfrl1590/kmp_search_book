@@ -26,6 +26,8 @@ coil3 = "3.0.0-rc02"
 
 landscapist = "2.4.2"
 
+coreSplashScreen = "1.0.1"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -59,6 +61,9 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 
 # Coil
 coil3 = { module = "com.github.skydoves:landscapist-coil3", version.ref = "landscapist" }
+
+# Splash
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashScreen"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
