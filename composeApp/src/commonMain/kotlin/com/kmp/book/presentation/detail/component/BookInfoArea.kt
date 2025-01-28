@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kmp.book.util.formatPrice
 
 @Composable
 fun BookInfoArea(
@@ -47,7 +48,7 @@ fun BookInfoArea(
         )
         BookInfoAreaItem(
             title = "판매가격",
-            value = "${salePrice}원"
+            value = "${formatPrice(salePrice)}원",
         )
         BookInfoAreaItem(
             title = "상태",

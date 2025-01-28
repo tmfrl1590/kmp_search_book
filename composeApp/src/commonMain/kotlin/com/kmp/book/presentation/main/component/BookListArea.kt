@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kmp.book.domain.model.Book
 import com.kmp.book.domain.model.Documents
+import com.kmp.book.util.formatPrice
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
 
@@ -115,7 +116,7 @@ private fun BookInfo(
             overflow = TextOverflow.Ellipsis, // 한 줄이 넘을 경우 "..." 표시
         )
         Text(
-            text = "${documents.salePrice}원" ,
+            text = "${formatPrice(documents.salePrice)}원",
         )
     }
 }
