@@ -14,35 +14,33 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun AppNavHost() {
     MaterialTheme {
-        MaterialTheme {
-            val navController = rememberNavController()
+        val navController = rememberNavController()
 
-            NavHost(
-                navController = navController,
-                startDestination = Screen.Main,
-            ){
-                composable<Screen.Main> {
-                    MainScreenRoute(
-                        navController = navController
-                    )
-                }
-                composable<Screen.Detail> { backStackEntry ->
-                    val thumbnail = backStackEntry.toRoute<Screen.Detail>().thumbnail
-                    val title = backStackEntry.toRoute<Screen.Detail>().title
-                    val contents = backStackEntry.toRoute<Screen.Detail>().contents
-                    val publisher = backStackEntry.toRoute<Screen.Detail>().publisher
-                    val salePrice = backStackEntry.toRoute<Screen.Detail>().salePrice
-                    val status = backStackEntry.toRoute<Screen.Detail>().status
-                    DetailScreenRoute(
-                        navController = navController,
-                        thumbnail = thumbnail,
-                        title = title,
-                        contents = contents,
-                        publisher = publisher,
-                        salePrice = salePrice,
-                        status = status,
-                    )
-                }
+        NavHost(
+            navController = navController,
+            startDestination = Screen.Main,
+        ){
+            composable<Screen.Main> {
+                MainScreenRoute(
+                    navController = navController
+                )
+            }
+            composable<Screen.Detail> { backStackEntry ->
+                val thumbnail = backStackEntry.toRoute<Screen.Detail>().thumbnail
+                val title = backStackEntry.toRoute<Screen.Detail>().title
+                val contents = backStackEntry.toRoute<Screen.Detail>().contents
+                val publisher = backStackEntry.toRoute<Screen.Detail>().publisher
+                val salePrice = backStackEntry.toRoute<Screen.Detail>().salePrice
+                val status = backStackEntry.toRoute<Screen.Detail>().status
+                DetailScreenRoute(
+                    navController = navController,
+                    thumbnail = thumbnail,
+                    title = title,
+                    contents = contents,
+                    publisher = publisher,
+                    salePrice = salePrice,
+                    status = status,
+                )
             }
         }
     }
