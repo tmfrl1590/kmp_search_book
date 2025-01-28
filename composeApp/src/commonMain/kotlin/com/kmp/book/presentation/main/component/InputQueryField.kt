@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,7 +32,7 @@ fun InputQueryField(
     inputText: String,
     onValueChange: (String) -> Unit,
     onSearch: () -> Unit,
-    onClick: () -> Unit,
+    onReset: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -54,13 +55,25 @@ fun InputQueryField(
         singleLine = true,
         maxLines = 1,
         shape = RoundedCornerShape(8.dp),
-        trailingIcon = {
+        leadingIcon = {
             IconButton(
-                onClick = onClick,
+                onClick = onSearch,
             ){
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = "search",
+                    modifier = Modifier
+                        .size(24.dp)
+                )
+            }
+        },
+        trailingIcon = {
+            IconButton(
+                onClick = onReset,
+            ){
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "close",
                     modifier = Modifier
                         .size(24.dp)
                 )

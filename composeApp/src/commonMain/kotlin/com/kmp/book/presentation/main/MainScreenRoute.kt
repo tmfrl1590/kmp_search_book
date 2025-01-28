@@ -35,6 +35,7 @@ fun MainScreenRoute(
             when(action){
                 is MainAction.OnQueryChange -> viewModel.onAction(action)
                 is MainAction.OnSearchBookList -> viewModel.onAction(action)
+                is MainAction.OnReset -> viewModel.onAction(action)
             }
         },
         onClick = { document ->
@@ -74,7 +75,7 @@ private fun MainScreen(
                 inputText = state.inputQuery,
                 onValueChange = { inputText -> onAction(MainAction.OnQueryChange(query = inputText)) },
                 onSearch = { onAction(MainAction.OnSearchBookList) },
-                onClick = { onAction(MainAction.OnSearchBookList) }
+                onReset = { onAction(MainAction.OnReset) }
             )
 
             Spacer(

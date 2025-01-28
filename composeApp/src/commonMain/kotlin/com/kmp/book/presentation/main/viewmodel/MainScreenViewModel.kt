@@ -40,6 +40,7 @@ class MainScreenViewModel(
         when(action){
             is MainAction.OnQueryChange -> _state.update { it.copy(inputQuery = action.query) }
             is MainAction.OnSearchBookList -> searchBookList(query = _state.value.inputQuery)
+            is MainAction.OnReset -> _state.update { it.copy(inputQuery = "") }
         }
     }
 }
