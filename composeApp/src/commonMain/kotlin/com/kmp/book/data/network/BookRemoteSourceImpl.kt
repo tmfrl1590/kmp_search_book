@@ -6,7 +6,6 @@ import com.kmp.book.core.domain.Result
 import com.kmp.book.data.dto.BookDto
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
-import io.ktor.client.request.header
 import io.ktor.client.request.parameter
 
 private const val BASE_URL = "https://dapi.kakao.com/v3/search/book"
@@ -21,7 +20,6 @@ class BookRemoteSourceImpl(
             httpClient.get(
                 urlString = BASE_URL
             ){
-                header("Authorization", "KakaoAK 944fbffbec5e67072545a386cffec708")
                 parameter("query", query)
             }
         }

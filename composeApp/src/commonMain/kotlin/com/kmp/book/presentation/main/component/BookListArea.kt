@@ -2,6 +2,7 @@ package com.kmp.book.presentation.main.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kmp.book.domain.model.Book
 import com.kmp.book.domain.model.Documents
+import com.kmp.book.presentation.main.MainScreenState
 import com.kmp.book.util.convertToAuthor
 import com.kmp.book.util.formatPrice
 import com.skydoves.landscapist.ImageOptions
@@ -31,28 +34,55 @@ import com.skydoves.landscapist.coil3.CoilImage
 
 @Composable
 fun BookListArea(
-    book: Book,
+    state: MainScreenState,
     onClick: (Documents) -> Unit
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
-    ) {
-        itemsIndexed(
-            items = book.documents,
-            key = { index, item ->
-                index
-            }
-        ){ _,  item ->
-            SearchedBookItem(
-                documents = item,
-                onClick = {
-                    onClick(item)
+    when {
+        state.isLoading -> LoadingArea()
+        state.bookList.documents.isEmpty() -> NoData()
+        else -> {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                itemsIndexed(
+                    items = state.bookList.documents,
+                    key = { index, item ->
+                        index
+                    }
+                ){ _,  item ->
+                    SearchedBookItem(
+                        documents = item,
+                        onClick = {
+                            onClick(item)
+                        }
+                    )
                 }
-            )
+            }
         }
     }
+}
+
+@Composable
+private fun LoadingArea() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun NoData() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Text("책 정보가 없습니다")
+    }
+
 }
 
 @Composable

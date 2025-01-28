@@ -83,7 +83,7 @@ private fun MainScreen(
             )
 
             BookListArea(
-                book = state.bookList,
+                state = state,
                 onClick = onClick
             )
         }

@@ -2,7 +2,6 @@ package com.kmp.book.presentation.main.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kmp.book.app.Screen
 import com.kmp.book.core.domain.onSuccess
 import com.kmp.book.data.repository.BookRepository
 import com.kmp.book.presentation.main.MainAction
@@ -43,5 +42,4 @@ class MainScreenViewModel(
             is MainAction.OnSearchBookList -> searchBookList(query = _state.value.inputQuery)
         }
     }
-
 }
