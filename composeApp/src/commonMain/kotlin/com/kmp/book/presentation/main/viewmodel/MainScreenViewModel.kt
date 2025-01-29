@@ -20,7 +20,23 @@ class MainScreenViewModel(
     private val _state = MutableStateFlow(MainScreenState())
     val state = _state.asStateFlow()
 
-    private fun searchBookList(query: String, page: Int){
+    private fun searchBookList(query: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            _state.update { it.copy(isLoading = true, currentPage = 1) }
+
+            bookRepository.searchBooks(query = query, page = 1)
+                .onSuccess { searchedBookList ->
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            bookList = searchedBookList,
+                        )
+                    }
+                }
+        }
+    }
+
+    private fun pagingGetBookList(query: String, page: Int){
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(isLoading = true) }
 
@@ -41,11 +57,11 @@ class MainScreenViewModel(
     fun onAction(action: MainAction){
         when(action){
             is MainAction.OnQueryChange -> _state.update { it.copy(inputQuery = action.query) }
-            is MainAction.OnSearchBookList -> searchBookList(query = _state.value.inputQuery, page = _state.value.currentPage)
+            is MainAction.OnSearchBookList -> searchBookList(query = _state.value.inputQuery)
             is MainAction.OnReset -> _state.update { it.copy(inputQuery = "") }
             is MainAction.OnAddPage -> {
                 _state.update { it.copy(currentPage = it.currentPage + 1) }
-                searchBookList(query = _state.value.inputQuery, page = _state.value.currentPage)
+                pagingGetBookList(query = _state.value.inputQuery, page = _state.value.currentPage)
             }
         }
     }
