@@ -27,6 +27,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
+val ICON_SIZE = 20.dp
+
 @Composable
 fun InputQueryField(
     inputText: String,
@@ -63,20 +65,22 @@ fun InputQueryField(
                     imageVector = Icons.Default.Search,
                     contentDescription = "search",
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(ICON_SIZE)
                 )
             }
         },
         trailingIcon = {
-            IconButton(
-                onClick = onReset,
-            ){
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = "close",
-                    modifier = Modifier
-                        .size(24.dp)
-                )
+            if(inputText.isNotEmpty()){
+                IconButton(
+                    onClick = onReset,
+                ){
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "close",
+                        modifier = Modifier
+                            .size(ICON_SIZE)
+                    )
+                }
             }
         },
         colors = TextFieldDefaults.colors(
