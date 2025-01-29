@@ -7,5 +7,6 @@ import com.kmp.book.data.dto.BookDto
 interface BookRemoteSource {
     suspend fun searchBooks(
         query: String,
+        page: Int,
     ): Result<BookDto, DataError.Remote>
 }

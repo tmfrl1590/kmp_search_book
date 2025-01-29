@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
 val ICON_SIZE = 20.dp
+const val SEARCH_BAR_PLACE_HOLDER = "책 이름을 입력해주세요"
 
 @Composable
 fun InputQueryField(
@@ -52,7 +53,7 @@ fun InputQueryField(
         value = inputText,
         onValueChange = onValueChange,
         placeholder = {
-            Text(text = "검색어를 입력해주세요")
+            Text(text = SEARCH_BAR_PLACE_HOLDER)
         },
         singleLine = true,
         maxLines = 1,

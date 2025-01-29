@@ -10,9 +10,9 @@ import com.kmp.book.domain.model.Book
 class BookRepositoryImpl(
     private val bookRemoteSource: BookRemoteSource,
 ): BookRepository {
-    override suspend fun searchBooks(query: String): Result<Book, DataError.Remote> {
+    override suspend fun searchBooks(query: String, page: Int): Result<Book, DataError.Remote> {
         return bookRemoteSource
-            .searchBooks(query = query)
+            .searchBooks(query = query, page = page)
             .map { dto -> mapperToBook(dto) }
     }
 }

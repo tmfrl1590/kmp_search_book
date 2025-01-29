@@ -6,5 +6,5 @@ import com.kmp.book.domain.model.Book
 
 interface BookRepository {
 
-    suspend fun searchBooks(query: String): Result<Book, DataError.Remote>
+    suspend fun searchBooks(query: String, page: Int): Result<Book, DataError.Remote>
 }

@@ -10,13 +10,16 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -24,7 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kmp.book.domain.model.Book
 import com.kmp.book.domain.model.Documents
 import com.kmp.book.presentation.main.MainScreenState
 import com.kmp.book.util.convertToAuthor
@@ -35,16 +37,38 @@ import com.skydoves.landscapist.coil3.CoilImage
 @Composable
 fun BookListArea(
     state: MainScreenState,
-    onClick: (Documents) -> Unit
+    onClick: (Documents) -> Unit,
+    onScrolledToEnd: () -> Unit,
 ) {
+    val listState = rememberLazyListState()
+
+    // 리스트가 끝까지 스크롤되었는지 감지
+    val visibleItemsInfo = listState.layoutInfo.visibleItemsInfo
+    val isScrolledToEnd = if (listState.layoutInfo.totalItemsCount == 0) {
+        false
+    } else {
+        val lastVisibleItem = visibleItemsInfo.last()
+        val viewportHeight = listState.layoutInfo.viewportEndOffset + listState.layoutInfo.viewportStartOffset
+        (lastVisibleItem.index == listState.layoutInfo.totalItemsCount - 1) && (lastVisibleItem.offset + lastVisibleItem.size <= viewportHeight)
+    }
+
+    // 스크롤이 끝까지 가면 콜백 호출
+    LaunchedEffect(isScrolledToEnd) {
+        if (isScrolledToEnd) {
+            onScrolledToEnd()
+        }
+    }
+
     when {
         state.isLoading -> LoadingArea()
         state.bookList.documents.isEmpty() -> NoData()
         else -> {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(20.dp)
+                    .fillMaxSize()
+                    .padding(bottom = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                state = listState
             ) {
                 itemsIndexed(
                     items = state.bookList.documents,

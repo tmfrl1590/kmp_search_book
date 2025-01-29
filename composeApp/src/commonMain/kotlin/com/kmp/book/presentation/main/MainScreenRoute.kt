@@ -36,6 +36,7 @@ fun MainScreenRoute(
                 is MainAction.OnQueryChange -> viewModel.onAction(action)
                 is MainAction.OnSearchBookList -> viewModel.onAction(action)
                 is MainAction.OnReset -> viewModel.onAction(action)
+                is MainAction.OnAddPage -> viewModel.onAction(action)
             }
         },
         onClick = { document ->
@@ -51,7 +52,7 @@ fun MainScreenRoute(
                     datetime = document.datetime
                 )
             )
-        }
+        },
     )
 }
 
@@ -61,9 +62,7 @@ private fun MainScreen(
     onAction: (MainAction) -> Unit,
     onClick: (Documents) -> Unit,
 ) {
-    Scaffold(
-
-    ){
+    Scaffold {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -85,7 +84,8 @@ private fun MainScreen(
 
             BookListArea(
                 state = state,
-                onClick = onClick
+                onClick = onClick,
+                onScrolledToEnd = { onAction(MainAction.OnAddPage) }
             )
         }
     }

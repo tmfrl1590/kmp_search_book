@@ -8,9 +8,11 @@ data class MainScreenState(
     val isLoading: Boolean = false,
     val bookList: Book = Book(
         meta = Meta(
-            isEnd = true,
-            pageableCount = 8278,
-            totalCount = 8241
+            isEnd = false,
+            pageableCount = 100,
+            totalCount = 100
         ), documents = listOf()
     ),
+
+    val currentPage: Int = 1,
 )
