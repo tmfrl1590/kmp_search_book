@@ -8,6 +8,7 @@ import com.kmp.book.presentation.main.MainAction
 import com.kmp.book.presentation.main.MainScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -22,9 +23,9 @@ class MainScreenViewModel(
 
     private fun searchBookList(query: String){
         viewModelScope.launch(Dispatchers.IO) {
-            _state.update { it.copy(isLoading = true, currentPage = 1) }
-
-            bookRepository.searchBooks(query = query, page = 1)
+            _state.update { it.copy(isLoading = true, currentPage = 1) } // 검색어가 바뀌면 페이지 초기화
+            delay(500L)
+            bookRepository.searchBooks(query = query, page = 1) // 검색어가 바뀌면 1페이지부터 시작하도록 변경
                 .onSuccess { searchedBookList ->
                     _state.update {
                         it.copy(
